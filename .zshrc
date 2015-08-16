@@ -30,12 +30,18 @@ source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
 
 alias gs="git status"
+alias status="git status"
 alias gd="git diff"
 alias ga="git add -A"
+alias add="git add -A"
 alias gc="git commit"
+alias commit="git commit"
 alias gca="git commit --amend"
 alias gp="git push"
+alias push="git push"
+alias pull="git pull"
 
+alias foray="cd Dropbox/Programming/HTML/foray"
 alias cdp="cd ~/inf_portal_api/portal"
 alias cdi="cd ~/inf_iaas_api/iaas"
 alias copy='fc -ln -1 | sed "1s/^[[:space:]]*//" | awk 1 ORS="" | pbcopy '
