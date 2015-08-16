@@ -41,7 +41,7 @@ alias gp="git push"
 alias push="git push"
 alias pull="git pull"
 
-alias foray="cd Dropbox/Programming/HTML/foray"
+alias foray="cd ~/Dropbox/Programming/HTML/foray"
 alias cdp="cd ~/inf_portal_api/portal"
 alias cdi="cd ~/inf_iaas_api/iaas"
 alias copy='fc -ln -1 | sed "1s/^[[:space:]]*//" | awk 1 ORS="" | pbcopy '
