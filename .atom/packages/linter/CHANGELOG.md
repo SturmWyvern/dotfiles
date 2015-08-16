@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 1.3.4
 
 * Messages are now deleted when a linter provider is deleted/deactivated.
@@ -11,6 +12,8 @@
 
 * Increase messages refresh interval, which should result in a cpu load decrease
 
+=======
+>>>>>>> 8b5b0f74a991b49e7d437134e709641dc5e1943b
 # 1.3.1
 
 * Fix a critical typo affecting multi line messages

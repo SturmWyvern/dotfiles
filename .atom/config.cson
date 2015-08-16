@@ -36,7 +36,7 @@
     tabLength: 4
     nonWordCharacters: "./\\\\()\\\"':,.;<>~!@#$%^&*|+=[]{}`~?"
     fontFamily: "Liberation Mono"
-    fontSize: 15
+    fontSize: 17
   linter: {}
   "linter-flake8": {}
   minimap:
