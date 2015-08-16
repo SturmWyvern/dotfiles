@@ -9,6 +9,8 @@
     css_newline_between_rules: true
     html_end_with_newline: true
     js_brace_style: "expand"
+    language_html_beautify_on_save: true
+    language_js_beautify_on_save: true
     language_css_beautify_on_save: true
     language_sass_beautify_on_save: true
     language_scss_beautify_on_save: true
@@ -60,5 +62,3 @@
   "close-tags": {}
   "autocomplete-plus": {}
   "atom-ternjs": {}
-  "linter-php": {}
-  "linter-jshint": {}

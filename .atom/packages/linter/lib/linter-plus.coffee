@@ -41,9 +41,7 @@ class Linter
     @linters.addLinter(linter)
 
   deleteLinter: (linter) ->
-    return unless @hasLinter(linter)
     @linters.deleteLinter(linter)
-    @deleteMessages(linter)
 
   hasLinter: (linter) ->
     @linters.hasLinter(linter)

@@ -1,14 +1,9 @@
 describe 'message-registry', ->
-  messageRegistry = null
   MessageRegistry = require('../lib/message-registry')
   EditorLinter = require('../lib/editor-linter')
   LinterRegistry = require('../lib/linter-registry')
-  objectSize = (obj) ->
-    size = 0
-    size++ for value of obj
-    return size
-  getMessage = (type, filePath) ->
-    return {type, text: "Some Message", filePath}
+  nextAnimationFrame = ->
+    return new Promise (resolve) -> requestAnimationFrame(resolve)
   getLinterRegistry = ->
     linterRegistry = new LinterRegistry
     editorLinter = new EditorLinter(atom.workspace.getActiveTextEditor())
@@ -16,76 +11,60 @@ describe 'message-registry', ->
       grammarScopes: ['*']
       lintOnFly: false
       modifiesBuffer: false
-      scope: 'project'
+      scope: 'file'
       lint: -> return [{type: "Error", text: "Something"}]
     }
     linterRegistry.addLinter(linter)
-    return {linterRegistry, editorLinter, linter}
+    return {linterRegistry, editorLinter}
 
   beforeEach ->
     waitsForPromise ->
       atom.workspace.destroyActivePaneItem()
-      atom.workspace.open('test.txt').then ->
-        messageRegistry?.deactivate()
-        messageRegistry = new MessageRegistry()
+      atom.workspace.open('test.txt')
+
+  describe '::constructor', ->
+    it 'accepts not arguments', ->
+      messageRegistry = new MessageRegistry()
+      messageRegistry.deactivate()
+      expect(true).toBe(true)
 
   describe '::set', ->
     it 'accepts info from LinterRegistry::lint', ->
+      messageRegistry = new MessageRegistry()
       {linterRegistry, editorLinter} = getLinterRegistry()
       wasUpdated = false
       linterRegistry.onDidUpdateMessages (linterInfo) ->
         wasUpdated = true
         messageRegistry.set(linterInfo)
-        expect(messageRegistry.hasChanged).toBe(true)
+        expect(messageRegistry.updated).toBe(true)
       waitsForPromise ->
         linterRegistry.lint({onChange: false, editorLinter}).then ->
           expect(wasUpdated).toBe(true)
           linterRegistry.deactivate()
-    it 'ignores deactivated linters', ->
-      {linterRegistry, editorLinter, linter} = getLinterRegistry()
-      messageRegistry.set({linter, messages: [getMessage('Error'), getMessage('Warning')]})
-      messageRegistry.updatePublic()
-      expect(messageRegistry.publicMessages.length).toBe(2)
-      linter.deactivated = true
-      messageRegistry.set({linter, messages: [getMessage('Error')]})
-      messageRegistry.updatePublic()
-      expect(messageRegistry.publicMessages.length).toBe(2)
-      linter.deactivated = false
-      messageRegistry.set({linter, messages: [getMessage('Error')]})
-      messageRegistry.updatePublic()
-      expect(messageRegistry.publicMessages.length).toBe(1)
+          messageRegistry.deactivate()
 
   describe '::onDidUpdateMessages', ->
     it 'is triggered asyncly with results', ->
-      wasUpdated = false
+      messageRegistry = new MessageRegistry()
       {linterRegistry, editorLinter} = getLinterRegistry()
       linterRegistry.onDidUpdateMessages (linterInfo) ->
         messageRegistry.set(linterInfo)
-        expect(messageRegistry.hasChanged).toBe(true)
-        messageRegistry.updatePublic()
+        expect(messageRegistry.updated).toBe(true)
       gotMessages = null
       messageRegistry.onDidUpdateMessages (messages) ->
-        wasUpdated = true
         gotMessages = messages
-      waitsForPromise ->
-        linterRegistry.lint({onChange: false, editorLinter}).then ->
-          expect(wasUpdated).toBe(true)
-          linterRegistry.deactivate()
+      # TODO: Write this spec
 
   describe '::deleteEditorMessages', ->
     it 'removes messages for that editor', ->
-      wasUpdated = 0
+      messageRegistry = new MessageRegistry()
       {linterRegistry, editorLinter} = getLinterRegistry()
       editor = editorLinter.editor
       linterRegistry.onDidUpdateMessages (linterInfo) ->
         messageRegistry.set(linterInfo)
-        expect(messageRegistry.hasChanged).toBe(true)
-        messageRegistry.updatePublic()
-      messageRegistry.onDidUpdateMessages ({messages}) ->
-        wasUpdated = 1
-        expect(objectSize(messages)).toBe(1)
+        expect(messageRegistry.updated).toBe(true)
+      gotMessages = null
+      messageRegistry.onDidUpdateMessages (messages) ->
+        gotMessages = messages
         messageRegistry.deleteEditorMessages(editor)
-      waitsForPromise ->
-        linterRegistry.lint({onChange: false, editorLinter}).then ->
-          expect(wasUpdated).toBe(1)
-          linterRegistry.deactivate()
+      # TODO: Write this spec

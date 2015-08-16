@@ -20,13 +20,8 @@
   "homepage": "https://github.com/kevinsawicki/monokai",
   "_id": "monokai@0.17.0",
   "_shasum": "ea8a78372538ee4d1d8ffcab7a6a5a971ac29320",
-<<<<<<< HEAD
-  "_resolved": "file:../d-115711-31323-118dffv/package.tgz",
-  "_from": "../d-115711-31323-118dffv/package.tgz",
-=======
   "_resolved": "file:../d-11576-19057-bocd2q/package.tgz",
   "_from": "../d-11576-19057-bocd2q/package.tgz",
->>>>>>> 8b5b0f74a991b49e7d437134e709641dc5e1943b
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
