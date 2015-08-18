@@ -33,11 +33,6 @@ if [[ $(uname -s) == *Darwin* ]]; then
   brew tap caskroom/versions
   brew tap caskroom/fonts
   
-  pip install flake8
-  pip install pylama
-  
-  curl https://install.meteor.com/ | sh
-  
   echo "Installing applications/utilities/tools..."
   brew cask install java
   brew cask install iterm2
@@ -84,7 +79,16 @@ fi
 if [[ $(uname -s) == *Linux* ]]; then
   echo "Running Linux..."
   sudo apt-get -y install zsh
+  sudo apt-get -y install unrar
+  sudo apt-get -y install python
+  sudo apt-get -y install python-pip
+  sudo apt-get -y install tree
 fi
+
+pip install flake8
+pip install pylama
+
+curl https://install.meteor.com/ | sh
 
 echo "Installing oh-my-zsh..."
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
