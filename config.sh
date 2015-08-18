@@ -85,8 +85,8 @@ if uname -s | grep -qi linux; then
   sudo apt-get -y install tree
 fi
 
-pip install flake8
-pip install pylama
+sudo pip install flake8
+sudo pip install pylama
 
 curl https://install.meteor.com/ | sh
 
