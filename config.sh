@@ -8,7 +8,7 @@
 # To Run, execute:
 # curl -L https://raw.githubusercontent.com/kevinschaich/dotfiles/master/config.sh | sh
 
-if [[ $(uname -s) == *Darwin* ]]; then
+if uname -s | grep -qi darwin; then
   echo "Running OS X..."
   echo "Installing Homebrew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -76,7 +76,7 @@ if [[ $(uname -s) == *Darwin* ]]; then
   brew cleanup
 fi
 
-if [[ $(uname -s) == *Linux* ]]; then
+if uname -s | grep -qi linux; then
   echo "Running Linux..."
   sudo apt-get -y install zsh
   sudo apt-get -y install unrar
@@ -97,7 +97,8 @@ cd ~/.oh-my-zsh/custom/plugins
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
 
 cd ~
-if [[ $(uname -s) == *Darwin* ]]; then
+
+if uname -s | grep -qi darwin; then
   
   # Set the colours you can use
   black='\033[0;30m'
@@ -411,6 +412,7 @@ if [[ $(uname -s) == *Darwin* ]]; then
   defaults write com.hegenberg.BetterSnapTool showMenubarIcon 0
   $ defaults write com.hegenberg.BetterSnapTool BSTMemorySaver -bool TRUE
 fi
+
 ###############################################################################
 # Setup symlinks for .dotfiles
 ###############################################################################
@@ -427,7 +429,7 @@ ln -sfF ~/dotfiles/.vimrc ~
 ln -sfF ~/dotfiles/.zshrc ~
 sudo cp ~/dotfiles/dark.terminal /Applications/Utilities/Terminal.app/Contents/Resources/Initial\ Settings/
 
-if [[ $(uname -s) == *Darwin* ]]; then
+if uname -s | grep -qi darwin; then
   ###############################################################################
   # iTerm 2
   ###############################################################################
